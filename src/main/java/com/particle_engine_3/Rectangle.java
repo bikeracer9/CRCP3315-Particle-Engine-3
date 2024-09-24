@@ -1,11 +1,12 @@
 /*
  * Prescott Lau
- * Particle Engine 2 Assignment
- * September 19th, 2024
+ * Particle Engine 3 Assignment
+ * September 24th, 2024
  * This file inherits the superclass (the particle object) and draws a rectangle with a ellipse inside of it!
  */
 
- package com.particle_engine_2; 
+
+ package com.particle_engine_3; 
 
  import processing.core.PApplet;
  

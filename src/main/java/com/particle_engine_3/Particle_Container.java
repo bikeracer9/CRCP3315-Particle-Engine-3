@@ -1,10 +1,11 @@
 /*
  * Prescott Lau
- * Particle Engine 2 Assignment
- * September 18th, 2024
+ * Particle Engine 3 Assignment
+ * September 24th, 2024
  * This file controls the particles!
  */
-package com.particle_engine_2;
+
+package com.particle_engine_3;
 
 import java.util.ArrayList;
 

@@ -5,7 +5,7 @@
  * This file is Superclass for all the particle objects.
  */
 
-package com.particle_engine_2;
+package com.particle_engine_3;
 
 import processing.core.PApplet;
 
