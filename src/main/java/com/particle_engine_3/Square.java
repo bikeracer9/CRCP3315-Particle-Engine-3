@@ -30,9 +30,14 @@ public class Square extends Particle_Object {
      */
     void draw()
     {
-        main.fill(color);
-        main.rect(x, y, size, size);
+        display();    
         super.move();
+    }
+
+    void display()
+    {
+        super.display();
+        main.rect(x, y, size, size);
     }
 
     /*

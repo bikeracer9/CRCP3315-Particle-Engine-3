@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 
-public class Particle_Container {
-    PApplet main; //the main class, which has all the processing functionality.
+public class Particle_Container extends GameController {
+    //PApplet main; //the main class, which has all the processing functionality.
 
     /*
      * Below are all the ArrayLists for each of the different objects.
@@ -26,9 +26,11 @@ public class Particle_Container {
     ArrayList<Circle> Circles;
     int circleCount = 7;
 
+    ArrayList<Particle_Object> particle_Objects;
+
     public Particle_Container(PApplet main_) 
     {
-        main = main_;
+        super(main_);
         init(); //initialize all the objects
     }
 
@@ -40,6 +42,8 @@ public class Particle_Container {
         Squares = new ArrayList();
         Rectangles = new ArrayList();
         Circles = new ArrayList();
+
+        particle_Objects = new ArrayList();
 
         for(int i = 0; i < squareCount; i++)
         {
@@ -56,6 +60,10 @@ public class Particle_Container {
             Circles.add( new Circle(main) );
         }
 
+        //add all the small particles to the big particle object ArrayList
+        particle_Objects.addAll(Squares);
+        particle_Objects.addAll(Rectangles);
+        particle_Objects.addAll(Circles);
     }
 
     /*
@@ -65,8 +73,9 @@ public class Particle_Container {
     {
         main.background(0); //draw the background
         display(); //display all objects
+        move(); //move the objects
         collisions(); //check collisions btwn circles
-        keys(); //checks all the keyboard functions.
+        keyPressed(); //checks all the keyboard functions.
     }
 
     /*
@@ -76,20 +85,9 @@ public class Particle_Container {
     {
         main.rectMode(3);
         main.noStroke();
-        for(int i = 0; i < Squares.size(); i++)
+        for(int i = 0; i < particle_Objects.size(); i++)
         {
-            Squares.get(i).draw();
-            
-        }
-
-        for(int i = 0; i < Rectangles.size(); i++)
-        {
-            Rectangles.get(i).draw();
-        }
-
-        for(int i = 0; i < Circles.size(); i++)
-        {
-            Circles.get(i).draw();
+            particle_Objects.get(i).display();
         }
 
     }
@@ -115,7 +113,7 @@ public class Particle_Container {
     /*
      * This function handles all of the keys pressed functions!
      */
-    void keys() 
+    public void keyPressed() 
     {
         if (main.keyPressed)
         {
@@ -168,6 +166,11 @@ public class Particle_Container {
      */
     void mousePressed()
     {
+        // for(int i = 0; i < particle_Objects.size(); i++)
+        // {
+        //     particle_Objects.get(i).mousePressed();
+        // }
+
         for(int i = 0; i < Circles.size(); i++)
         {
             Circles.get(i).mousePressed();
@@ -181,6 +184,14 @@ public class Particle_Container {
         for(int i = 0; i < Rectangles.size(); i++)
         {
             Rectangles.get(i).mousePressed();
+        }
+    }
+
+    void move()
+    {
+        for(int i = 0; i < particle_Objects.size(); i++)
+        {
+            particle_Objects.get(i).move();
         }
     }
 

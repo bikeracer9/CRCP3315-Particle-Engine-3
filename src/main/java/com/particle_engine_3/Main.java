@@ -51,4 +51,9 @@ public class Main extends PApplet {
     {
        container.mousePressed();
     }
+
+    public void keyPressed()
+    {
+        container.keyPressed();
+    }
 }

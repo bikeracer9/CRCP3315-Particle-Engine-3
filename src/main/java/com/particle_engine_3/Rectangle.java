@@ -24,12 +24,17 @@
      * It draws all the Rectangles.
      */
      void draw()
+     {    
+        display();
+        super.move();
+     }
+
+     void display()
      {
         main.rectMode(3);
-        main.fill(color, alphaValue);
+        super.display();
         main.rect(x, y, size*2, size);
         main.ellipse(x, y, size*2/3, size*2);
-        super.move();
      }
 
      /*

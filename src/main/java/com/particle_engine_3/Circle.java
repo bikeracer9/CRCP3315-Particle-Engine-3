@@ -23,9 +23,14 @@ public class Circle extends Particle_Object {
      */
     void draw()
     {
-        main.fill(color, alphaValue);
-        main.ellipse(x, y, size, size);
+        display();
         super.move();
+    }
+
+    void display()
+    {
+        super.display();
+        main.ellipse(x, y, size, size);
     }
 
     /*
