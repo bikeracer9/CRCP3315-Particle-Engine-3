@@ -17,6 +17,10 @@ public class Particle_Container extends GameController {
     /*
      * Below are all the ArrayLists for each of the different objects.
      */
+
+    Avatar avatar;
+    //ArrayList<NPC> NPC;
+
     ArrayList<Square> Squares;
     int squareCount = 8;
 
@@ -39,6 +43,7 @@ public class Particle_Container extends GameController {
  */
     public void init()
     {    
+        avatar = new Avatar(main);
         Squares = new ArrayList();
         Rectangles = new ArrayList();
         Circles = new ArrayList();
@@ -76,6 +81,13 @@ public class Particle_Container extends GameController {
         move(); //move the objects
         collisions(); //check collisions btwn circles
         keyPressed(); //checks all the keyboard functions.
+
+        //check to see if we need to end the game
+        nextController = -1;
+        if( avatar.getHealth() <= 0 )
+        {
+            nextController = 1; //switch out
+        }
     }
 
     /*
@@ -164,7 +176,7 @@ public class Particle_Container extends GameController {
      * This is the mousePressed function
      * It calls all the subclasses mousePressed functions and sets all the objects to do whatever is in that function.
      */
-    void mousePressed()
+    public void mousePressed()
     {
         // for(int i = 0; i < particle_Objects.size(); i++)
         // {
@@ -187,12 +199,30 @@ public class Particle_Container extends GameController {
         }
     }
 
-    void move()
+    public void move()
     {
         for(int i = 0; i < particle_Objects.size(); i++)
         {
             particle_Objects.get(i).move();
         }
+    }
+
+    //change the location of the avatar, hooked up w mouseDragged in main.
+    public void setAvatarLocation(float x, float y)
+    {
+        avatar.setLocation(x, y);
+    }
+    //move avatar when mouse is dragged.
+    public void mouseDragged()
+    {
+        setAvatarLocation(main.mouseX, main.mouseY);
+    }
+
+    public void reset()
+    {
+        super.reset();
+        init();
+
     }
 
 }

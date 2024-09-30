@@ -36,8 +36,8 @@ public class Particle_Object {
         x = main.random(main.width);
         y = main.random(main.height);
 
-        xVel = main.random(-10,10);
-        yVel = main.random(-10,10);
+        xVel = main.random(-3,3);
+        yVel = main.random(-3,3);
 
         pVelX = xVel;
         pVelY = yVel;

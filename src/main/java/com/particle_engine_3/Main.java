@@ -8,12 +8,18 @@
 
 package com.particle_engine_3;
 
+import java.util.ArrayList;
+
 import processing.core.PApplet;
 
 
 public class Main extends PApplet {
 
-    Particle_Container container; //controls the particles
+    //Particle_Container container; //controls the particles
+    ArrayList<GameController> controllers = new ArrayList<>();
+    int gameplay = 0;
+    int end = 1;
+    int curController = 0;
 
     public static void main(String[] args) { //sets up processing
         PApplet.main("com.particle_engine_3.Main");
@@ -23,7 +29,8 @@ public class Main extends PApplet {
     public void settings()
     {
         size(800, 800);
-        container = new Particle_Container(this);
+        controllers.add(new Particle_Container(this) );
+        controllers.add(new GameEndController(this) );
     }
     
     /*
@@ -40,7 +47,14 @@ public class Main extends PApplet {
     */
     public void draw()
     {
-        container.draw();
+        controllers.get(curController).draw();
+
+        if(controllers.get(curController).switchController() > -1)
+        {
+            int nextControl = controllers.get(curController).switchController();
+            controllers.get(curController).reset();
+            curController = nextControl;
+        }
     }
 
     /*
@@ -49,11 +63,11 @@ public class Main extends PApplet {
      */
     public void mousePressed()
     {
-       container.mousePressed();
+        controllers.get(curController).mousePressed();
     }
 
     public void keyPressed()
     {
-        container.keyPressed();
+        controllers.get(curController).keyPressed();
     }
 }

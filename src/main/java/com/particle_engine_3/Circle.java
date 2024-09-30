@@ -39,7 +39,7 @@ public class Circle extends Particle_Object {
      */
     void mousePressed()
     {
-        float randomValue = main.random(1, 5);
+        float randomValue = main.random(1, 2);
         xVel += randomValue;
         yVel += randomValue;
     }
