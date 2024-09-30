@@ -9,7 +9,13 @@ import processing.core.PApplet;
 
 public abstract class GameController {
     PApplet main; //reference to the main class
-    int nextController = -1;
+    
+    static final int DO_NOT_CHANGE = -1;
+    static final int GAME_PLAY = 0;
+    static final int GAME_END = 1;
+    static final int GAME_WIN = 2;
+
+    int nextController = DO_NOT_CHANGE;
 
     GameController(PApplet main_)
     {
@@ -17,18 +23,27 @@ public abstract class GameController {
     }
 
     public abstract void draw();
-    public abstract void mouseDragged();
-    public abstract void mousePressed();
-    public abstract void keyPressed();
+    public void mouseDragged()
+    {
+        //do nothing by default!
+    }
+    public void mousePressed()
+    {
+        //do nothing by default!
+    }
+    public void keyPressed()
+    {
+        //do nothing by default!
+    }
 
     public int switchController()
     {
         return nextController;
     }
 
-    //resets the next controller
+    //resets the next controller 
     public void reset()
     {
-        nextController = -1; 
+        nextController = DO_NOT_CHANGE; 
     }
 }

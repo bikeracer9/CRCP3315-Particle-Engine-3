@@ -1,14 +1,16 @@
 /*
  * Prescott Lau
  * September 30th
- * This class extends the GameController class and controls the End Screen.
+ * This class extends the GameController class and controls the Win Screen.
  */
+
 package com.particle_engine_3;
 
 import processing.core.PApplet;
 
-public class GameEndController extends GameController {
-    GameEndController(PApplet main_)
+public class GameWinController extends GameController{
+    
+    GameWinController(PApplet main_)
     {
         super(main_);
     }
@@ -18,7 +20,7 @@ public class GameEndController extends GameController {
         main.background(0);
         main.fill(255);
         main.textSize(35);
-        main.text("Game Over!", (main.width/2)-125, (main.height/2)-150);
+        main.text("You Won! :)", (main.width/2)-125, (main.height/2)-150);
         main.text("Press spacebar to restart!", (main.width/2)-225, (main.height/2)+25);
 
     }

@@ -18,6 +18,7 @@ public class Particle_Object {
     float size; //size of the Particle Object
     int alphaValue; //value that changes the Particle Objects opacity. 
     float pVelX, pVelY; //previous velocity (used to reset velocity of Square objects)
+    boolean hit; //if the game object has been hit.
 
     //initializes everything
     Particle_Object(PApplet main_, float size_, int color_, int a)
@@ -45,7 +46,8 @@ public class Particle_Object {
 
     void display()
     {
-        main.fill(color, alphaValue);   
+        main.fill(color, alphaValue);
+        main.ellipse(x, y, size, size);
     }
 
     /*
@@ -110,10 +112,19 @@ public class Particle_Object {
         return size;
     }
 
+    // /*
+    // *  This is a method to see if two circles are colliding with one another.
+    // */
+    // boolean isColliding(Circle object)
+    // {
+    //     float distance = PApplet.dist(x, y, object.getX(), object.getY());
+    //     return (distance < (size/2 + object.getSize()/2));
+    // }
+
     /*
-    *  This is a method to see if two circles are colliding with one another.
+    *  Method to see if objects touch each other.
     */
-    boolean isColliding(Circle object)
+    boolean isHit(Particle_Object object)
     {
         float distance = PApplet.dist(x, y, object.getX(), object.getY());
         return (distance < (size/2 + object.getSize()/2));

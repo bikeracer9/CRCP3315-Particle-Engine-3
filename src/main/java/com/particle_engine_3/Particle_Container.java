@@ -19,16 +19,23 @@ public class Particle_Container extends GameController {
      */
 
     Avatar avatar;
-    //ArrayList<NPC> NPC;
 
-    ArrayList<Square> Squares;
-    int squareCount = 8;
+    // ArrayList<Square> Squares;
+    // int squareCount = 8;
 
-    ArrayList<Rectangle> Rectangles;
-    int rectCount = 5;
+    // ArrayList<Rectangle> Rectangles;
+    // int rectCount = 5;
 
-    ArrayList<Circle> Circles;
-    int circleCount = 7;
+    // ArrayList<Circle> Circles;
+    // int circleCount = 7;
+
+    ArrayList<NPC> npc;
+
+    ArrayList<Loot> loot;
+    int loot_count = 3;
+
+    ArrayList<Enemy> enemies;
+    int enemy_count = 5;
 
     ArrayList<Particle_Object> particle_Objects;
 
@@ -44,31 +51,54 @@ public class Particle_Container extends GameController {
     public void init()
     {    
         avatar = new Avatar(main);
-        Squares = new ArrayList();
-        Rectangles = new ArrayList();
-        Circles = new ArrayList();
+        npc = new ArrayList();
+        loot = new ArrayList();
+        enemies = new ArrayList();
 
-        particle_Objects = new ArrayList();
+        // Squares = new ArrayList();
+        // Rectangles = new ArrayList();
+        // Circles = new ArrayList();
 
-        for(int i = 0; i < squareCount; i++)
-        {
-            Squares.add( new Square(main) );
-        }
+        
+
+        // for(int i = 0; i < squareCount; i++)
+        // {
+        //     Squares.add( new Square(main) );
+        // }
        
-        for(int i = 0; i < rectCount; i++)
+        // for(int i = 0; i < rectCount; i++)
+        // {
+        //     Rectangles.add( new Rectangle(main) );
+        // }
+
+        // for(int i = 0; i < circleCount; i++)
+        // {
+        //     Circles.add( new Circle(main) );
+        // }
+
+        for(int i = 0; i < loot_count; i++)
         {
-            Rectangles.add( new Rectangle(main) );
+            loot.add( new Loot(main) );
         }
 
-        for(int i = 0; i < circleCount; i++)
+       
+        for(int i = 0; i < enemy_count; i++)
         {
-            Circles.add( new Circle(main) );
+            enemies.add( new Enemy(main) );
         }
 
+        //add all the NPC
+        npc.addAll(loot);
+        npc.addAll(enemies);
+        
+        
         //add all the small particles to the big particle object ArrayList
-        particle_Objects.addAll(Squares);
-        particle_Objects.addAll(Rectangles);
-        particle_Objects.addAll(Circles);
+        particle_Objects = new ArrayList();
+        particle_Objects.add(avatar);
+        particle_Objects.addAll(npc);
+        // particle_Objects.addAll(Squares);
+        // particle_Objects.addAll(Rectangles);
+        // particle_Objects.addAll(Circles);
     }
 
     /*
@@ -80,13 +110,18 @@ public class Particle_Container extends GameController {
         display(); //display all objects
         move(); //move the objects
         collisions(); //check collisions btwn circles
-        keyPressed(); //checks all the keyboard functions.
 
         //check to see if we need to end the game
-        nextController = -1;
-        if( avatar.getHealth() <= 0 )
+        nextController = GameController.DO_NOT_CHANGE;
+
+        if( avatar.getHealth() <= 0 )//if the player dies, player loses
         {
-            nextController = 1; //switch out
+            nextController = GameController.GAME_END; //draws the end game screen
+        }
+
+        if( avatar.getCoins() >= 15 ) //if the player has more than 15 coins, player wins
+        {
+            nextController = GameController.GAME_WIN; //draws the win game screen
         }
     }
 
@@ -110,94 +145,126 @@ public class Particle_Container extends GameController {
      */
     public void collisions()
     {
-        for(int i = 0; i < Circles.size(); i++)
+        for(int i = 0; i < npc.size(); i++)
         {
-            for(int j = 0; j < Circles.size(); j++)
+            avatar.collisions(npc.get(i));
+            npc.get(i).collision(avatar);
+
+            
+            //     if (npc.get(i) != npc.get(j) && npc.get(i).collisions(npc.get(j)))
+            //     {
+
+            //     }
+            }
+
+
+            for(int i = 0; i < enemies.size(); i++)
             {
-                if (Circles.get(i).isColliding(Circles.get(j)) && Circles.get(i) != Circles.get(j) )
+                for(int j = 0; j < enemies.size(); j++)
+            {
+                if (enemies.get(i) != enemies.get(j))
                 {
-                    Circles.get(i).reverseDir();
+                    enemies.get(i).collision(enemies.get(j));
                 }
             }
         }
+
+        
+
+        // for(int i = 0; i < enemies.size(); i++)
+        // {
+        //     avatar.collisions(enemies.get(i));
+        //     enemies.get(i).collision(avatar);
+        // }
+
+        // for(int i = 0; i < Circles.size(); i++)
+        // {
+        //     for(int j = 0; j < Circles.size(); j++)
+        //     {
+        //         if (Circles.get(i).isColliding(Circles.get(j)) && Circles.get(i) != Circles.get(j) )
+        //         {
+        //             Circles.get(i).reverseDir();
+        //         }
+        //     }
+        // }
     }
 
     /*
      * This function handles all of the keys pressed functions!
      */
-    public void keyPressed() 
-    {
-        if (main.keyPressed)
-        {
-            if( main.key == 'w' || main.key == 'W') //if 'W' is pressed, then do below...
-            {
-                for(int i = 0; i < Circles.size(); i++)
-                {
-                    Circles.get(i).makeBigger(); //changes the size of the circles to make them bigger.
-                }
-            }
+    // public void keyPressed() 
+    // {
+    //     if (main.keyPressed)
+    //     {
+    //         if( main.key == 'w' || main.key == 'W') //if 'W' is pressed, then do below...
+    //         {
+    //             for(int i = 0; i < Circles.size(); i++)
+    //             {
+    //                 Circles.get(i).makeBigger(); //changes the size of the circles to make them bigger.
+    //             }
+    //         }
 
-            if( main.key == 'e' || main.key == 'E') //if 'E' is pressed, then do below...
-            {
-                for(int i = 0; i < Circles.size(); i++)
-                {
-                    Circles.get(i).makeSmaller(); //changes the size of the circles to make them smaller.
-                }
-            }
+    //         if( main.key == 'e' || main.key == 'E') //if 'E' is pressed, then do below...
+    //         {
+    //             for(int i = 0; i < Circles.size(); i++)
+    //             {
+    //                 Circles.get(i).makeSmaller(); //changes the size of the circles to make them smaller.
+    //             }
+    //         }
 
-            if( main.key == 's' || main.key == 'S') //if 'S' is pressed, then do below...
-            {
-                for(int i = 0; i < Squares.size(); i++)
-                {
-                    Squares.get(i).stopVel(); //makes the Squares stop moving! 
-                }
-            }
+    //         if( main.key == 's' || main.key == 'S') //if 'S' is pressed, then do below...
+    //         {
+    //             for(int i = 0; i < Squares.size(); i++)
+    //             {
+    //                 Squares.get(i).stopVel(); //makes the Squares stop moving! 
+    //             }
+    //         }
 
-            if( main.key == 'd' || main.key == 'D') //if 'D' is pressed, then do below...
-            {
-                for(int i = 0; i < Squares.size(); i++)
-                {
-                    Squares.get(i).resetVel(); //changes the velocity of the Squares back to what it had been when the object was initialized
-                }
-            }
+    //         if( main.key == 'd' || main.key == 'D') //if 'D' is pressed, then do below...
+    //         {
+    //             for(int i = 0; i < Squares.size(); i++)
+    //             {
+    //                 Squares.get(i).resetVel(); //changes the velocity of the Squares back to what it had been when the object was initialized
+    //             }
+    //         }
 
-            if( main.key == 'x' || main.key == 'X') //if 'X' is pressed, then do below...
-            {
-                for(int i = 0; i < Rectangles.size(); i++)
-                {
-                    Rectangles.get(i).resetAlpha(); //resets the alpha value of the Rectangle objects.
-                }
-            }
+    //         if( main.key == 'x' || main.key == 'X') //if 'X' is pressed, then do below...
+    //         {
+    //             for(int i = 0; i < Rectangles.size(); i++)
+    //             {
+    //                 Rectangles.get(i).resetAlpha(); //resets the alpha value of the Rectangle objects.
+    //             }
+    //         }
 
-        }
-    }
+    //     }
+    // }
 
-    /*
-     * This is the mousePressed function
-     * It calls all the subclasses mousePressed functions and sets all the objects to do whatever is in that function.
-     */
-    public void mousePressed()
-    {
-        // for(int i = 0; i < particle_Objects.size(); i++)
-        // {
-        //     particle_Objects.get(i).mousePressed();
-        // }
+    // /*
+    //  * This is the mousePressed function
+    //  * It calls all the subclasses mousePressed functions and sets all the objects to do whatever is in that function.
+    //  */
+    // public void mousePressed()
+    // {
+    //     // for(int i = 0; i < particle_Objects.size(); i++)
+    //     // {
+    //     //     particle_Objects.get(i).mousePressed();
+    //     // }
 
-        for(int i = 0; i < Circles.size(); i++)
-        {
-            Circles.get(i).mousePressed();
-        }
+    //     for(int i = 0; i < Circles.size(); i++)
+    //     {
+    //         Circles.get(i).mousePressed();
+    //     }
 
-        for(int i = 0; i < Squares.size(); i++)
-        {
-            Squares.get(i).mousePressed();
-        }
+    //     for(int i = 0; i < Squares.size(); i++)
+    //     {
+    //         Squares.get(i).mousePressed();
+    //     }
 
-        for(int i = 0; i < Rectangles.size(); i++)
-        {
-            Rectangles.get(i).mousePressed();
-        }
-    }
+    //     for(int i = 0; i < Rectangles.size(); i++)
+    //     {
+    //         Rectangles.get(i).mousePressed();
+    //     }
+    // }
 
     public void move()
     {

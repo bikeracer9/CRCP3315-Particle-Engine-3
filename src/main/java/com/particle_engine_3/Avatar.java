@@ -10,13 +10,21 @@ import processing.core.PApplet;
 
 public class Avatar extends Particle_Object{
 
-    int health = 3; //health, determines when the game ends.
+    int health = 3; //health, determines when the game ends (loses).
+    int coins = 0; //coins - determines when the game ends (wins!)
 
     Avatar(PApplet main_)
     {
-        super(main_, 45, main_.color(255,165,0), 255);
+        super(main_, 35, main_.color(0,0,255), 255);
         x = main.width/2;
         y = main_.height/2;
+    }
+
+    //display the object
+    void display()
+    {
+        super.display();
+        main.ellipse(x, y, size, size);
     }
 
     void setLocation(float x_, float y_)
@@ -26,29 +34,38 @@ public class Avatar extends Particle_Object{
     }
 
     //if a collision happened, deduct health!
-    void collision(Particle_Object object)
+    void collisions(Particle_Object object)
     {   
-        // hit = isHit(object);
-        // if (hit)
-        // {
-            // if(object instanceof Enemy)
-            // {
-            //     health--;
-            //     System.out.println("Health = " + health);
-            // }
+        hit = isHit(object);
+        if (hit)
+        {
+            if(object instanceof Enemy)
+            {
+                health--;
+                System.out.println("Health = " + health);
+            }
 
-            // if(object instanceof NPC)
-            // {
-            //     float randomValue = main.random(1, 2);
-            //     object.xVel += randomValue;
-            //     object.yVel += randomValue;
-            // }
-        // }
+            if(object instanceof NPC)
+            {
+                coins++;
+                System.out.println("Coins =" + coins);
+                // float randomValue = main.random(1, 2);
+                // object.xVel += randomValue;
+                // object.yVel += randomValue;
+            }
+        }
     }
+    
 
     //getter for the health variable
     float getHealth()
     {
         return health;
+    }
+
+    //getter for coins!
+    float getCoins()
+    {
+        return coins;
     }
 }
