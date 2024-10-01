@@ -43,7 +43,7 @@ public class Avatar extends Particle_Object{
         {
             if(object instanceof Enemy)
             {
-                main.fill(255,0,0, 200);
+                main.fill(255,0,0, 200); //code to display a red box on the screen when you lose health
                 main.rectMode(0);
                 main.rect(0,0,800,800);
                 health--;
@@ -73,7 +73,7 @@ public class Avatar extends Particle_Object{
                 }
                 else if(random_number == 2)
                 {
-                    main.fill(255,0,0, 200);
+                    main.fill(255,0,0, 190); //code to display a red box on the screen when you lose health
                     main.rectMode(0);
                     main.rect(0,0,800,800);
                     health -= 2;
