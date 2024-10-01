@@ -1,3 +1,8 @@
+/*
+*   Prescott Lau
+*   September 30th 2024
+*   This is the NPC Class, the superclass for all the NPC objects (loot & enemies).
+*/
 package com.particle_engine_3;
 
 import processing.core.PApplet;
@@ -39,6 +44,4 @@ public class NPC extends Particle_Object{
             reverseDir();
         }
     }
-
-    
 }

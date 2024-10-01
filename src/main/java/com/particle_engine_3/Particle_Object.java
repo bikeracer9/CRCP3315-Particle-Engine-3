@@ -17,7 +17,6 @@ public class Particle_Object {
     float xVel, yVel; //velocity of the Particle Object
     float size; //size of the Particle Object
     int alphaValue; //value that changes the Particle Objects opacity. 
-    float pVelX, pVelY; //previous velocity (used to reset velocity of Square objects)
     boolean hit; //if the game object has been hit.
 
     //initializes everything
@@ -37,11 +36,8 @@ public class Particle_Object {
         x = main.random(main.width);
         y = main.random(main.height);
 
-        xVel = main.random(-3,3);
-        yVel = main.random(-3,3);
-
-        pVelX = xVel;
-        pVelY = yVel;
+        xVel = main.random(-1,10);
+        yVel = main.random(-1,10);
     }
 
     void display()
@@ -112,15 +108,6 @@ public class Particle_Object {
         return size;
     }
 
-    // /*
-    // *  This is a method to see if two circles are colliding with one another.
-    // */
-    // boolean isColliding(Circle object)
-    // {
-    //     float distance = PApplet.dist(x, y, object.getX(), object.getY());
-    //     return (distance < (size/2 + object.getSize()/2));
-    // }
-
     /*
     *  Method to see if objects touch each other.
     */
@@ -130,52 +117,4 @@ public class Particle_Object {
         return (distance < (size/2 + object.getSize()/2));
     }
 
-    //Below are the keyboard functions for all of the objects.
-    /*
-     * This function is used to make the Circles bigger.
-     * It is called when the user presses the W key on the keyboard.
-     */
-    void makeBigger()
-    {
-        size = size + 1;
-    }
-
-     /*
-     * This function is used to make the Circles bigger.
-     * It is called when the user presses the E key on the keyboard.
-     */
-    void makeSmaller()
-    {
-        size = size - 1;
-    }
-
-    /*
-     * This function is used to make the Squares stop moving. 
-     * It is called when the user presses the S key on the keyboard.
-     */
-    void stopVel()
-    {
-        
-        xVel = 0;
-        yVel = 0;
-    }
-
-    /*
-     * This function is used to make the Squares start moving again. 
-     * It is called when the user presses the D key on the keyboard.
-     */
-    void resetVel()
-    {
-        xVel = pVelX;
-        yVel = pVelY;
-    }
-
-    /*
-     * This function is used to reset the Alpha value of the Rectangles — transparency!
-     * It is called when the user presses the X key on the keyboard.
-     */
-    void resetAlpha()
-    {
-        alphaValue = 255;
-    }
 }

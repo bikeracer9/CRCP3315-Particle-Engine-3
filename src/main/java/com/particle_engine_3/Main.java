@@ -4,6 +4,20 @@
  * September 24th, 2024
  * This project uses Polymorphism to create a particle engine.
  * This is the Main file.
+ * 
+ * Instructions: 
+ *      Drag your mouse around the screen to move the green ball (your avatar). 
+ *      Do not get hit by the Red balls - or else you will lose 1 health point!
+ *      - Be careful, you only have 3 health points to start with!
+ *      
+ *      If you touch a yellow ball, you get 1 coin.
+ *      You want to win the game by getting 25 coins before you run out of lives!
+ *      You can also lose the game if you get -5 coins!
+ * 
+ *      If you are in a gambling mood, touch the blue balls and you can gamble on what happens!
+ *      (more information explaining this in the Power_Up class, & also in the Avatar class where the code is).
+ *      
+ *      Good Luck and Have fun!
  */
 
 package com.particle_engine_3;

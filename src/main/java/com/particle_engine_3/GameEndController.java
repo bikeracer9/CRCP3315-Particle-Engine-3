@@ -20,7 +20,6 @@ public class GameEndController extends GameController {
         main.textSize(35);
         main.text("Game Over!", (main.width/2)-125, (main.height/2)-150);
         main.text("Press spacebar to restart!", (main.width/2)-225, (main.height/2)+25);
-
     }
     public void mousePressed()
     {
