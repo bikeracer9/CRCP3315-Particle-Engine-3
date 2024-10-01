@@ -26,7 +26,7 @@ public class Particle_Container extends GameController {
     int loot_count = 3;
 
     ArrayList<Enemy> enemies;
-    int enemy_count = 13;
+    int enemy_count = 15;
 
     ArrayList<Power_Up> PowerUp;
     int PowerUpCount = 2;

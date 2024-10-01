@@ -17,7 +17,7 @@ public class Avatar extends Particle_Object{
 
     Avatar(PApplet main_)
     {
-        super(main_, 35, main_.color(0,255,0), 255);
+        super(main_, 30, main_.color(0,255,0), 255);
         x = main.width/2;
         y = main_.height/2;
     }
